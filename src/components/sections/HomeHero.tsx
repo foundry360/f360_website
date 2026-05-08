@@ -1,11 +1,12 @@
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { pageGuttersClass } from "@/lib/layout";
 import { site } from "@/lib/site";
 
-/** Home hero — centered headline on dark grid (no side panel). */
+/** Home hero — left-aligned headline on dark grid (no side panel). */
 export function HomeHero() {
   return (
     <section
-      className="relative isolate min-h-[min(52vh,420px)] w-full overflow-x-hidden border-b border-border bg-grid-fade"
+      className="relative isolate min-h-[min(52vh,460px)] w-full overflow-x-hidden border-b border-border bg-grid-fade"
       aria-labelledby="home-hero-heading"
     >
       <div
@@ -14,25 +15,27 @@ export function HomeHero() {
       />
 
       <div
-        className={`relative z-10 ${pageGuttersClass} flex min-h-[min(52vh,420px)] flex-col items-center justify-center gap-6 py-16 text-center sm:gap-8 sm:py-20`}
+        className={`relative z-10 ${pageGuttersClass} flex min-h-[min(52vh,460px)] flex-col items-start justify-center gap-6 py-20 text-left sm:gap-8 sm:py-24 lg:py-28`}
       >
-        <div className="flex flex-col items-center gap-3 sm:gap-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">
-            {site.tagline}
-          </p>
-          <div className="mx-auto w-full max-w-full overflow-x-auto overflow-y-visible [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <h1
-              id="home-hero-heading"
-              className="mx-auto w-max max-w-none px-2 text-center text-[clamp(0.95rem,2.2vw+0.55rem,3.75rem)] font-bold leading-tight tracking-tight text-foreground whitespace-nowrap"
-            >
-              Building&nbsp;Intelligence. Accelerating&nbsp;Innovation
-            </h1>
-          </div>
+        <div className="flex w-full flex-col items-start gap-3 sm:gap-4">
+          <div className="mb-3 h-1 w-24 bg-accent sm:mb-4" aria-hidden />
+          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">{site.tagline}</p>
+          <h1
+            id="home-hero-heading"
+            className="w-full max-w-5xl text-5xl font-bold leading-[1.1] tracking-[0.015em] text-foreground normal-case sm:text-6xl lg:text-7xl"
+          >
+            <span className="block">
+              Building Intelligence<span className="text-accent">.</span>
+            </span>
+            <span className="block">Accelerating Innovation</span>
+          </h1>
         </div>
-        <p className="mx-auto max-w-2xl text-lg font-medium leading-snug text-foreground/95 sm:text-xl">
-          AI Application Development that Drives Business Transformation
+        <p className="max-w-5xl text-base font-medium leading-relaxed text-foreground/95 sm:text-lg">
+          Delivering AI strategies that transform how your business operates, redesigning operating models for AI{"\u2011"}driven execution, guiding the adoption of agent-driven workflows across platforms, and defining the data and governance foundation required to scale.
         </p>
-        <div className="mx-auto mt-2 h-1 w-24 bg-accent" aria-hidden />
+        <ButtonLink href="/contact#contact-form" size="sm">
+          Consult an Expert
+        </ButtonLink>
       </div>
     </section>
   );

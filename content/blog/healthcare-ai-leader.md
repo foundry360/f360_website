@@ -1,6 +1,6 @@
 ---
 title: "Healthcare steps forward as America’s AI leader"
-description: "Why regulated health systems are positioned to set the bar for responsible AI adoption—and what other industries can borrow."
+description: "Why regulated health systems are positioned to set the bar for responsible AI adoption, and what other industries can borrow."
 date: "2025-11-19"
 author: "Foundry360"
 featured: true
@@ -8,7 +8,7 @@ featured: true
 
 ## Context
 
-Healthcare organizations operate under intense scrutiny—and that pressure has become a catalyst for disciplined AI programs rather than a blocker.
+Healthcare organizations operate under intense scrutiny, and that pressure has become a catalyst for disciplined AI programs rather than a blocker.
 
 ## Takeaway
 

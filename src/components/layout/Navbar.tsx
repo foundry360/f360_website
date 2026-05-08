@@ -7,7 +7,6 @@ import { useState } from "react";
 import logo from "../../../public/images/logo.png";
 import { navEntries, site } from "@/lib/site";
 import { isNavActive } from "@/lib/nav";
-import { ButtonLink } from "@/components/ui/ButtonLink";
 
 const navUnderline =
   "pointer-events-none absolute bottom-0 left-0 right-0 h-px rounded-full bg-accent transition-transform duration-300 ease-out motion-reduce:transition-none";
@@ -86,9 +85,6 @@ export function Navbar() {
           </nav>
 
           <div className="flex shrink-0 items-center gap-2">
-            <ButtonLink href="/contact#contact-form" className="hidden md:inline-flex">
-              Get in touch
-            </ButtonLink>
             <button
               type="button"
               className="inline-flex items-center justify-center rounded-md border border-border p-2 text-foreground md:hidden"
@@ -127,9 +123,6 @@ export function Navbar() {
                 );
               })}
             </ul>
-            <ButtonLink href="/contact#contact-form" className="mt-3 w-full justify-center" onClick={() => setMobileOpen(false)}>
-              Get in touch
-            </ButtonLink>
           </nav>
         </div>
       ) : null}

@@ -7,6 +7,7 @@ import { CTABanner } from "@/components/sections/CTABanner";
 import { pageGuttersClass } from "@/lib/layout";
 import { getPostBySlug, getPostSlugs } from "@/lib/posts";
 import { site } from "@/lib/site";
+import { formatSectionHeadingTitle } from "@/lib/sectionHeadingTitleCase";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -55,12 +56,20 @@ export default async function InsightArticlePage({ params }: Props) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <article>
-        <header className="border-b border-border bg-grid-fade">
-          <div className={`${pageGuttersClass} py-12 text-center`}>
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">Insight</p>
-            <h1 className="mt-4 text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">{post.title}</h1>
-            <p className="mt-4 text-lg text-muted">{post.description}</p>
-            <div className="mt-6 flex flex-wrap items-center justify-center gap-3 text-sm text-muted">
+        <header className="relative isolate min-h-[min(52vh,460px)] w-full overflow-x-hidden border-b border-border bg-grid-fade">
+          <div
+            className="pointer-events-none absolute -left-32 top-0 h-96 w-96 rounded-full bg-accent/20 blur-3xl"
+            aria-hidden
+          />
+          <div
+            className={`relative z-10 ${pageGuttersClass} flex min-h-[min(52vh,460px)] flex-col items-center justify-center gap-6 py-20 text-center sm:gap-8 sm:py-24 lg:py-28`}
+          >
+            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">Insight</p>
+            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-foreground normal-case sm:text-5xl">
+              {formatSectionHeadingTitle(post.title)}
+            </h1>
+            <p className="text-base text-muted sm:text-lg">{post.description}</p>
+            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted">
               <time dateTime={post.date}>
                 {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
               </time>
@@ -69,7 +78,7 @@ export default async function InsightArticlePage({ params }: Props) {
             </div>
           </div>
         </header>
-        <Section aria-label="Article body" className="py-16 sm:py-20">
+        <Section variant="light" aria-label="Article body" className="py-16 sm:py-20">
           <MarkdownBody content={post.content} />
           <nav className="mt-12 flex flex-wrap gap-4 border-t border-border pt-10 text-sm" aria-label="Article navigation">
             <Link href="/insights" className="font-medium text-accent hover:underline">
@@ -83,10 +92,10 @@ export default async function InsightArticlePage({ params }: Props) {
             </Link>
           </nav>
         </Section>
-        <Section variant="muted" aria-label="Next step" className="py-16 sm:py-20">
+        <Section variant="accentSoft" aria-label="Next step" className="py-16 sm:py-20">
           <CTABanner
             title="Want to apply this to your roadmap?"
-            body="Tell us what you are trying to change in the next quarter—we will be direct about feasibility, sequencing, and where outside help moves the needle."
+            body="Tell us what you are trying to change in the next quarter. We will be direct about feasibility, sequencing, and where outside help moves the needle."
             cta={{ href: "/contact#contact-form", label: "Consult with an expert" }}
           />
         </Section>

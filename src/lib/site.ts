@@ -1,10 +1,10 @@
 /** Central nav + company strings — mirrors foundry360.us facts; swap body copy via CMS when ready. */
 export const site = {
   name: "Foundry360",
-  /** Aligned with live site positioning (enterprise AI build & deploy). */
-  tagline: "Enterprise AI development and deployment",
+  /** Aligned with live site positioning (enterprise AI strategy & deploy). */
+  tagline: "Enterprise AI Strategy and Deployment",
   description:
-    "Foundry360 helps organizations turn AI concepts into production-ready applications—combining enterprise governance, intelligent orchestration, and architectures designed for compliance from the start.",
+    "Foundry360 helps organizations turn AI concepts into production-ready applications by combining enterprise governance, intelligent orchestration, and architectures designed for compliance from the start.",
   /** Primary marketing domain (WordPress canonical also uses foundry360.us). */
   url: "https://www.foundry360.us",
   email: "jgelsomino@foundry360.us",

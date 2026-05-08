@@ -8,7 +8,7 @@ featured: true
 
 ## Focus areas
 
-Workflow triage, document synthesis, and service operations—when bounded with observability—tend to pay back fastest.
+Workflow triage, document synthesis, and service operations, when bounded with observability, tend to pay back fastest.
 
 ## Caution
 

@@ -36,6 +36,12 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* legacy Edge */
+}
+
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -48,6 +54,12 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Alternating home sections after hero: .band-light = white, .band-dark = black (hero stays dark grid). */
@@ -72,6 +84,22 @@ body {
   --border: rgba(255, 255, 255, 0.1);
   --accent-dim: rgba(139, 111, 253, 0.22);
   background-color: #000000;
+  color: var(--foreground);
+}
+
+/** Pre-footer CTA band — brand purple */
+.band-accent-soft {
+  --background: #8b6ffd;
+  --foreground: #ffffff;
+  --muted: rgba(255, 255, 255, 0.78);
+  --surface: rgba(255, 255, 255, 0.12);
+  --surface-elevated: #ffffff;
+  --border: rgba(255, 255, 255, 0.28);
+  --accent: #ffffff;
+  --accent-foreground: #3a2b6e;
+  --accent-dim: rgba(255, 255, 255, 0.22);
+  --ring: #ffffff;
+  background-color: #8b6ffd;
   color: var(--foreground);
 }
 
@@ -119,11 +147,24 @@ body {
   text-underline-offset: 3px;
 }
 
+.prose-f360 h1 {
+  text-transform: none;
+}
+
 .prose-f360 h2 {
   margin-top: 2rem;
   font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -0.02em;
+  text-transform: none;
+}
+
+.prose-f360 h3 {
+  margin-top: 1.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  text-transform: none;
 }
 
 .prose-f360 p {

@@ -8,7 +8,7 @@ featured: true
 
 ## The shift
 
-Markets reward teams that orchestrate the **full lifecycle**—onboarding, success milestones, renewals, and expansion—in one coherent story.
+Markets reward teams that orchestrate the **full lifecycle** (onboarding, success milestones, renewals, and expansion) in one coherent story.
 
 ## Practical move
 

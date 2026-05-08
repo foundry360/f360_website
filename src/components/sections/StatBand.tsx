@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { pageGuttersClass } from "@/lib/layout";
+import { formatSectionHeadingTitle } from "@/lib/sectionHeadingTitleCase";
 
 type Stat = { value: string; label: string; hint?: string };
 
@@ -7,19 +8,29 @@ type Stat = { value: string; label: string; hint?: string };
 export function StatBand({
   stats,
   title,
+  overline,
   belowMetrics,
 }: {
   stats: Stat[];
-  title?: string;
+  title?: ReactNode;
+  /** Line above the main title (e.g. section theme). */
+  overline?: ReactNode;
   belowMetrics?: ReactNode;
 }) {
+  const renderedTitle = typeof title === "string" ? formatSectionHeadingTitle(title) : title;
+
   return (
     <div className="band-light border-y border-border">
       <div className={`${pageGuttersClass} py-20 sm:py-24 lg:py-28`}>
-        {title ? (
+        {title != null && title !== "" ? (
           <div className="mb-10 sm:mb-12">
-            <h2 className="mx-auto text-center whitespace-nowrap font-semibold leading-none tracking-tight text-foreground text-[clamp(12px,calc(0.5rem+3.2vmin),3.5rem)]">
-              {title}
+            {overline ? (
+              <p className="mx-auto mb-4 max-w-5xl text-center text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:mb-5 sm:text-base">
+                {overline}
+              </p>
+            ) : null}
+            <h2 className="mx-auto w-full max-w-none text-pretty text-center text-[clamp(14px,calc(0.55rem+4.2vmin),4.5rem)] font-semibold leading-tight tracking-tight text-foreground normal-case">
+              {renderedTitle}
             </h2>
           </div>
         ) : null}
@@ -46,7 +57,7 @@ export function StatBand({
         </div>
         {belowMetrics ? (
           <div className="mt-10 sm:mt-12">
-            <div className="mx-auto max-w-3xl text-justify text-lg leading-relaxed text-muted sm:max-w-4xl sm:text-xl">
+            <div className="mx-auto max-w-5xl text-justify text-base leading-relaxed text-muted sm:max-w-6xl sm:text-lg lg:max-w-7xl">
               {belowMetrics}
             </div>
           </div>

@@ -14,7 +14,7 @@ export function ContactForm() {
   return (
     <form
       onSubmit={onSubmit}
-      className="grid gap-5 rounded-2xl border border-border bg-surface/60 p-6 sm:p-8"
+      className="grid gap-5 rounded-2xl border border-border bg-black/25 p-6 backdrop-blur-sm sm:p-8"
       noValidate
     >
       <div className="grid gap-2 sm:grid-cols-2 sm:gap-4">
@@ -27,7 +27,7 @@ export function ContactForm() {
             name="first"
             autoComplete="given-name"
             required
-            className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
+            className="rounded-lg border border-border bg-black/35 px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
             placeholder="Jordan"
           />
         </div>
@@ -40,7 +40,7 @@ export function ContactForm() {
             name="last"
             autoComplete="family-name"
             required
-            className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
+            className="rounded-lg border border-border bg-black/35 px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
             placeholder="Lee"
           />
         </div>
@@ -55,7 +55,7 @@ export function ContactForm() {
           type="email"
           autoComplete="email"
           required
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
+          className="rounded-lg border border-border bg-black/35 px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
           placeholder="you@company.com"
         />
       </div>
@@ -67,7 +67,7 @@ export function ContactForm() {
           id="company"
           name="company"
           autoComplete="organization"
-          className="rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
+          className="rounded-lg border border-border bg-black/35 px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
           placeholder="Acme Corp"
         />
       </div>
@@ -80,7 +80,7 @@ export function ContactForm() {
           name="message"
           rows={4}
           required
-          className="resize-y rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
+          className="resize-y rounded-lg border border-border bg-black/35 px-3 py-2 text-sm text-foreground outline-none ring-offset-2 ring-offset-background placeholder:text-muted focus:border-accent focus:ring-2 focus:ring-accent/30"
           placeholder="Brief context on systems, timeline, and outcomes you are targeting."
         />
       </div>
@@ -93,7 +93,7 @@ export function ContactForm() {
         </button>
         {sent ? (
           <p className="text-sm text-accent" role="status">
-            Thanks — this demo form does not post yet; your product team can connect an endpoint here.
+            Thanks. This demo form does not post yet; your product team can connect an endpoint here.
           </p>
         ) : null}
       </div>

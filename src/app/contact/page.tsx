@@ -3,10 +3,11 @@ import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/layout/Section";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { site } from "@/lib/site";
+import { formatSectionHeadingTitle } from "@/lib/sectionHeadingTitleCase";
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: `Reach ${site.name}—enterprise AI strategy, development, governance, and integration. ${site.email} · ${site.phone}.`,
+  description: `Reach ${site.name} for enterprise AI strategy, development, governance, and integration. ${site.email} · ${site.phone}.`,
 };
 
 export default function ContactPage() {
@@ -16,17 +17,17 @@ export default function ContactPage() {
     <>
       <Hero
         eyebrow="Contact"
-        title={<>Talk to one of our experts</>}
-        subtitle="Curious how Foundry360 can help your business move faster—without compromising governance? Share your sector, systems, and what you are trying to prove this year. We respond with a direct point of view, not a generic pitch."
-        primaryCta={{ href: `mailto:${site.email}`, label: "Email us" }}
-        secondaryCta={{ href: "/what-we-do", label: "What we do" }}
+        title="Talk to one of our experts"
+        subtitle="Curious how Foundry360 can help your business move faster without compromising governance? Share your sector, systems, and what you are trying to prove this year. We respond with a direct point of view, not a generic pitch."
       />
 
-      <Section aria-label="Contact options and form" className="py-16 sm:py-20">
+      <Section variant="light" aria-label="Contact options and form" className="py-16 sm:py-20">
         <div className="grid gap-12 lg:grid-cols-5 lg:gap-16">
           <div className="lg:col-span-2 space-y-6">
             <div>
-              <h2 className="text-xl font-semibold tracking-tight text-foreground">Direct lines</h2>
+              <h2 className="text-2xl font-semibold tracking-tight text-foreground normal-case sm:text-3xl">
+                {formatSectionHeadingTitle("Direct lines")}
+              </h2>
               <address className="mt-4 not-italic space-y-3 text-sm leading-relaxed text-muted">
                 <p className="font-medium text-foreground">{site.name}</p>
                 <p>{addressLine}</p>
@@ -42,13 +43,13 @@ export default function ContactPage() {
                 </p>
               </address>
             </div>
-            <div className="rounded-2xl border border-border bg-surface/50 p-5">
+            <div className="rounded-2xl border border-border bg-black/25 p-5 backdrop-blur-sm">
               <h3 className="text-sm font-semibold text-foreground">What to include</h3>
               <ul className="mt-3 list-inside list-disc space-y-2 text-sm text-muted marker:text-accent">
                 <li>Industry and regulatory context that shapes how you can ship.</li>
-                <li>Current systems (cloud, data platforms, CRM, service tools—whatever matters).</li>
-                <li>Whether you need strategy, build, governance, integration—or all of the above.</li>
-                <li>Timeline and the decision you are trying to make in the next 30–60 days.</li>
+                <li>Current systems (cloud, data platforms, CRM, service tools, whatever matters).</li>
+                <li>Whether you need strategy, build, governance, integration, or all of the above.</li>
+                <li>Timeline and the decision you are trying to make in the next 30 to 60 days.</li>
               </ul>
             </div>
             <p className="text-xs leading-relaxed text-muted">

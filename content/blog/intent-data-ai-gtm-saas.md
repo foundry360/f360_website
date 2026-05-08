@@ -1,6 +1,6 @@
 ---
 title: "SaaS growth with multi-sourced intent and AI-assisted GTM"
-description: "Intent is noisy alone. Combining sources with clear plays—and AI that accelerates research, not judgment—changes the economics of outbound and expansion."
+description: "Intent is noisy alone. Combining sources with clear plays and AI that accelerates research, not judgment, changes the economics of outbound and expansion."
 date: "2025-06-05"
 author: "Foundry360"
 featured: true

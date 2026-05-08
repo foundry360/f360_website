@@ -1,2 +1,3 @@
-/** Full-width content row: no max-width cap, consistent horizontal gutters. */
-export const pageGuttersClass = "mx-auto w-full max-w-none px-7 sm:px-12 lg:px-16 xl:px-24 2xl:px-36";
+/** Centered page column: max width on large viewports + horizontal gutters. */
+export const pageGuttersClass =
+  "mx-auto w-full max-w-[96rem] px-10 sm:px-14 lg:px-16 xl:px-20 2xl:px-24";
