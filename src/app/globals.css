@@ -1,26 +1,132 @@
 @import "tailwindcss";
 
+/*
+ * Foundry360 brand tokens — aligned with live site (foundry360.us / Elementor):
+ * - Near-black backgrounds, white primary type
+ * - Accent purple (lighter than live #6F47FB for readability on dark UI)
+ * Source: inline Elementor / header styles from production HTML.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #9ca3af;
+  --surface: #0a0a0a;
+  --surface-elevated: #171717;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent: #8b6ffd;
+  --accent-foreground: #ffffff;
+  --accent-dim: rgba(139, 111, 253, 0.22);
+  --ring: #8b6ffd;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-muted: var(--muted);
+  --color-surface: var(--surface);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent-dim: var(--accent-dim);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
+}
+
+/* Alternating home sections after hero: .band-light = white, .band-dark = black (hero stays dark grid). */
+.band-light {
+  --background: #ffffff;
+  --foreground: #0a0a0a;
+  --muted: #52525b;
+  --surface: #f4f4f5;
+  --surface-elevated: #e8e8ed;
+  --border: rgba(10, 10, 10, 0.12);
+  --accent-dim: rgba(139, 111, 253, 0.16);
+  background-color: #ffffff;
+  color: var(--foreground);
+}
+
+.band-dark {
+  --background: #000000;
+  --foreground: #ffffff;
+  --muted: #9ca3af;
+  --surface: #0a0a0a;
+  --surface-elevated: #171717;
+  --border: rgba(255, 255, 255, 0.1);
+  --accent-dim: rgba(139, 111, 253, 0.22);
+  background-color: #000000;
+  color: var(--foreground);
+}
+
+/* Subtle grid for depth on hero / CTA bands */
+.bg-grid-fade {
+  background-image:
+    linear-gradient(to bottom, transparent, var(--background)),
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 48px 48px, 48px 48px;
+}
+
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-reveal-up {
+  animation: reveal-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-reveal-up {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Prose for markdown insight posts */
+.prose-f360 {
+  --tw-prose-body: var(--muted);
+  --tw-prose-headings: var(--foreground);
+  --tw-prose-links: var(--accent);
+}
+
+.prose-f360 a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.prose-f360 h2 {
+  margin-top: 2rem;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.prose-f360 p {
+  margin-top: 1rem;
+  line-height: 1.75;
 }
