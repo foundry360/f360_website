@@ -28,7 +28,7 @@ export const navEntries: readonly NavLeaf[] = [
   { href: "/what-you-can-expect", label: "What you can expect" },
   { href: "/industries", label: "Industries" },
   { href: "/insights", label: "Insights" },
-  { href: "/contact", label: "Contact" },
+  { href: "#contact-form", label: "Contact" },
 ] as const;
 
 /** Shown in footer below primary IA (still part of this Next.js site). */

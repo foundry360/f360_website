@@ -70,7 +70,7 @@ export function Hero({ eyebrow, title, subtitle, align = "left" }: HeroProps) {
           </p>
         </Reveal>
         <Reveal delayMs={120} className={isLeft ? "w-full" : "flex w-full flex-wrap justify-center"}>
-          <ButtonLink href="/contact#contact-form" size="sm">
+          <ButtonLink href="#contact-form" size="sm">
             Consult an Expert
           </ButtonLink>
         </Reveal>

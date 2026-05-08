@@ -118,7 +118,7 @@ export default function AboutPage() {
         <CTABanner
           title="Want a candid read on your roadmap?"
           body="Bring your stakeholders and constraints. We will share where we agree, where we would sequence differently, and what a first delivery slice could look like."
-          cta={{ href: "/contact#contact-form", label: "Consult with an expert" }}
+          cta={{ href: "#contact-form", label: "Consult with an expert" }}
         />
       </Section>
     </>

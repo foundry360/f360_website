@@ -14,6 +14,7 @@ const nextConfig: NextConfig = {
       { source: "/products", destination: "/what-we-do", permanent: true },
       { source: "/products/node2ai", destination: "/what-we-do", permanent: true },
       { source: "/products/supernovaai", destination: "/what-we-do", permanent: true },
+      { source: "/contact", destination: "/#contact-form", permanent: false },
     ];
   },
 };

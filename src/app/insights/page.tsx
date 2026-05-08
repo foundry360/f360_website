@@ -74,7 +74,7 @@ export default function InsightsPage() {
         <CTABanner
           title="Want to pressure-test an idea from these articles?"
           body="Send a short note with your context. We will tell you if we have seen the movie before, and what we would validate first."
-          cta={{ href: "/contact#contact-form", label: "Consult with an expert" }}
+          cta={{ href: "#contact-form", label: "Consult with an expert" }}
         />
       </Section>
     </>

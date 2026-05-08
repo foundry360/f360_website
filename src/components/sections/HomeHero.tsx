@@ -33,7 +33,7 @@ export function HomeHero() {
         <p className="max-w-5xl text-base font-medium leading-relaxed text-foreground/95 sm:text-lg">
           Delivering AI strategies that transform how your business operates, redesigning operating models for AI{"\u2011"}driven execution, guiding the adoption of agent-driven workflows across platforms, and defining the data and governance foundation required to scale.
         </p>
-        <ButtonLink href="/contact#contact-form" size="sm">
+        <ButtonLink href="#contact-form" size="sm">
           Consult an Expert
         </ButtonLink>
       </div>

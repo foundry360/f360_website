@@ -4,6 +4,7 @@ import "./globals.css";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
+import { ContactModalRoot } from "@/components/contact/ContactModalRoot";
 import { site } from "@/lib/site";
 
 const geistSans = Geist({
@@ -49,18 +50,20 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <a
-          href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-foreground"
-        >
-          Skip to main content
-        </a>
-        <Navbar />
-        <main id="main-content" className="flex-1" tabIndex={-1}>
-          {children}
-        </main>
-        <Footer />
-        <BackToTop />
+        <ContactModalRoot>
+          <a
+            href="#main-content"
+            className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded-md focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-foreground"
+          >
+            Skip to main content
+          </a>
+          <Navbar />
+          <main id="main-content" className="flex-1" tabIndex={-1}>
+            {children}
+          </main>
+          <Footer />
+          <BackToTop />
+        </ContactModalRoot>
       </body>
     </html>
   );

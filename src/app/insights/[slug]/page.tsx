@@ -90,7 +90,7 @@ export default async function InsightArticlePage({ params }: Props) {
             <Link href="/what-we-do" className="text-muted underline-offset-2 hover:text-foreground hover:underline">
               What we do
             </Link>
-            <Link href="/contact#contact-form" className="text-muted underline-offset-2 hover:text-foreground hover:underline">
+            <Link href="#contact-form" className="text-muted underline-offset-2 hover:text-foreground hover:underline">
               Discuss with our team
             </Link>
           </nav>
@@ -99,7 +99,7 @@ export default async function InsightArticlePage({ params }: Props) {
           <CTABanner
             title="Want to apply this to your roadmap?"
             body="Tell us what you are trying to change in the next quarter. We will be direct about feasibility, sequencing, and where outside help moves the needle."
-            cta={{ href: "/contact#contact-form", label: "Consult with an expert" }}
+            cta={{ href: "#contact-form", label: "Consult with an expert" }}
           />
         </Section>
       </article>

@@ -101,7 +101,7 @@ export default function WhatYouCanExpectPage() {
         <CTABanner
           title="Prefer to validate fit before a full proposal?"
           body="We can start with a short working session on your highest-risk unknown, then decide together whether a broader engagement makes sense."
-          cta={{ href: "/contact#contact-form", label: "Get in touch" }}
+          cta={{ href: "#contact-form", label: "Get in touch" }}
         />
       </Section>
     </>

@@ -175,7 +175,7 @@ export default function WhatWeDoPage() {
         <CTABanner
           title="Talk to one of our experts"
           body="Curious how Foundry360 can help your business? We would love to discuss how AI-powered consulting and delivery can impact your bottom line, with a plan you can actually execute."
-          cta={{ href: "/contact#contact-form", label: "Get in touch" }}
+          cta={{ href: "#contact-form", label: "Get in touch" }}
         />
       </Section>
     </>

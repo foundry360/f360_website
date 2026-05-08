@@ -98,7 +98,7 @@ export default function HowWeWorkPage() {
         <CTABanner
           title="See how this would look for your program"
           body="Walk us through your current initiative. We will map where ELEV8-style structure would reduce risk and accelerate clarity."
-          cta={{ href: "/contact#contact-form", label: "Talk to an expert" }}
+          cta={{ href: "#contact-form", label: "Talk to an expert" }}
         />
       </Section>
     </>

@@ -231,7 +231,7 @@ export default function IndustriesPage() {
         <CTABanner
           title="Tell us what “safe enough to ship” means in your environment"
           body="We will map constraints, propose a pragmatic sequence, and be direct about what we would prove first, before asking for a long-term commitment."
-          cta={{ href: "/contact#contact-form", label: "Get in touch" }}
+          cta={{ href: "#contact-form", label: "Get in touch" }}
         />
       </Section>
     </>

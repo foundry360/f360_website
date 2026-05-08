@@ -79,7 +79,7 @@ export function Footer() {
             </address>
             <p>
               <Link
-                href="/contact#contact-form"
+                href="#contact-form"
                 className="text-xs font-medium text-accent underline-offset-2 hover:underline sm:text-sm"
               >
                 Get in touch →

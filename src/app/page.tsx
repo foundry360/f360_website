@@ -261,7 +261,7 @@ export default function HomePage() {
           title="How can we move your program forward?"
           titleSingleLine
           body="Tell us what you are trying to prove this quarter. We will share a direct view on sequencing, skills, and the technical path that fits your constraints."
-          cta={{ href: "/contact#contact-form", label: "Get in touch" }}
+          cta={{ href: "#contact-form", label: "Get in touch" }}
         />
       </Section>
 
