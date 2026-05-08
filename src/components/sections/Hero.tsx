@@ -8,18 +8,17 @@ type HeroProps = {
   eyebrow?: string;
   title: ReactNode;
   subtitle: string;
-  /** Default centered; `left` matches the home hero (left-aligned column). */
+  /** Default matches the home hero; set `center` for centered layout. */
   align?: "center" | "left";
 };
 
-export function Hero({ eyebrow, title, subtitle, align = "center" }: HeroProps) {
+export function Hero({ eyebrow, title, subtitle, align = "left" }: HeroProps) {
   const titleContent = typeof title === "string" ? formatSectionHeadingTitle(title) : title;
   const isLeft = align === "left";
 
-  const h1Class = [
-    "text-5xl font-semibold tracking-tight text-foreground normal-case sm:text-6xl lg:text-7xl",
-    isLeft ? "w-full max-w-5xl leading-[1.1]" : "mx-auto max-w-[90ch] leading-tight",
-  ].join(" ");
+  const h1Class = isLeft
+    ? "w-full max-w-5xl text-5xl font-bold leading-[1.1] tracking-[0.015em] text-foreground normal-case sm:text-6xl lg:text-7xl"
+    : "mx-auto max-w-[90ch] text-5xl font-semibold leading-tight tracking-tight text-foreground normal-case sm:text-6xl lg:text-7xl";
 
   const titleBlock = (
     <Reveal delayMs={40} className="w-full">

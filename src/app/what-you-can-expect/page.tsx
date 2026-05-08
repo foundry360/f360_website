@@ -18,7 +18,11 @@ export default function WhatYouCanExpectPage() {
     <>
       <Hero
         eyebrow="What you can expect"
-        title="Clarity, cadence, and accountability"
+        title={
+          <>
+            Clarity<span className="text-accent">.</span> Cadence<span className="text-accent">.</span> Accountability
+          </>
+        }
         subtitle="You should always know what “good” looks like, what happens next, and who owns each risk. This page summarizes how we collaborate from kickoff through delivery, so there are fewer surprises and more forward motion."
       />
 

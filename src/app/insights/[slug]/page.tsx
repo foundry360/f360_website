@@ -62,14 +62,17 @@ export default async function InsightArticlePage({ params }: Props) {
             aria-hidden
           />
           <div
-            className={`relative z-10 ${pageGuttersClass} flex min-h-[min(52vh,460px)] flex-col items-center justify-center gap-6 py-20 text-center sm:gap-8 sm:py-24 lg:py-28`}
+            className={`relative z-10 ${pageGuttersClass} flex min-h-[min(52vh,460px)] flex-col items-start justify-center gap-6 py-20 text-left sm:gap-8 sm:py-24 lg:py-28`}
           >
-            <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">Insight</p>
-            <h1 className="text-4xl font-semibold leading-tight tracking-tight text-foreground normal-case sm:text-5xl">
-              {formatSectionHeadingTitle(post.title)}
-            </h1>
-            <p className="text-base text-muted sm:text-lg">{post.description}</p>
-            <div className="flex flex-wrap items-center justify-center gap-3 text-sm text-muted">
+            <div className="flex w-full flex-col items-start gap-3 sm:gap-4">
+              <div className="mb-3 h-1 w-24 bg-accent sm:mb-4" aria-hidden />
+              <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">Insight</p>
+              <h1 className="w-full max-w-5xl text-5xl font-bold leading-[1.1] tracking-[0.015em] text-foreground normal-case sm:text-6xl lg:text-7xl">
+                {formatSectionHeadingTitle(post.title)}
+              </h1>
+            </div>
+            <p className="max-w-5xl text-base font-medium leading-relaxed text-foreground/95 sm:text-lg">{post.description}</p>
+            <div className="flex flex-wrap items-center justify-start gap-3 text-sm text-muted">
               <time dateTime={post.date}>
                 {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
               </time>

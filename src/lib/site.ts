@@ -20,21 +20,19 @@ export const site = {
 
 export type NavLeaf = { readonly href: string; readonly label: string };
 
-/** Primary header IA — aligned with https://foundry360.us/ (no Products section in this Next.js build). */
+/** Primary header IA — main routes for this Next.js site (includes Industries). */
 export const navEntries: readonly NavLeaf[] = [
   { href: "/", label: "Home" },
   { href: "/what-we-do", label: "What we do" },
   { href: "/how-we-work", label: "How we work" },
   { href: "/what-you-can-expect", label: "What you can expect" },
+  { href: "/industries", label: "Industries" },
   { href: "/insights", label: "Insights" },
   { href: "/contact", label: "Contact" },
 ] as const;
 
 /** Shown in footer below primary IA (still part of this Next.js site). */
-export const footerExtraLinks: readonly NavLeaf[] = [
-  { href: "/industries", label: "Industries" },
-  { href: "/about", label: "About" },
-] as const;
+export const footerExtraLinks: readonly NavLeaf[] = [{ href: "/about", label: "About" }] as const;
 
 /** Flattened links for footer “Explore”. */
 export function getFooterNavLinks(): { href: string; label: string }[] {

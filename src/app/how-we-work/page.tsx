@@ -4,6 +4,7 @@ import { Hero } from "@/components/sections/Hero";
 import { Section } from "@/components/layout/Section";
 import { CardGrid } from "@/components/sections/CardGrid";
 import { CTABanner } from "@/components/sections/CTABanner";
+import { accentAiInFormattedHeading } from "@/components/sections/accentAiTitle";
 import { site } from "@/lib/site";
 import { formatSectionHeadingTitle } from "@/lib/sectionHeadingTitleCase";
 
@@ -18,7 +19,9 @@ export default function HowWeWorkPage() {
     <>
       <Hero
         eyebrow="How we work"
-        title="Your path to enterprise AI deployment"
+        title={accentAiInFormattedHeading(
+          formatSectionHeadingTitle("Your path to enterprise AI deployment"),
+        )}
         subtitle="AI-powered applications only matter when they ship securely. We combine structured frameworks, hands-on workshops, and integrated teams so understanding turns into vision, and vision turns into execution."
       />
 
