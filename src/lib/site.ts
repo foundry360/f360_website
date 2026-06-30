@@ -27,6 +27,7 @@ export const navEntries: readonly NavLeaf[] = [
   { href: "/how-we-work", label: "How we work" },
   { href: "/what-you-can-expect", label: "What you can expect" },
   { href: "/industries", label: "Industries" },
+  { href: "/ai-readiness", label: "AI Readiness" },
   { href: "/insights", label: "Insights" },
   { href: "#contact-form", label: "Contact" },
 ] as const;

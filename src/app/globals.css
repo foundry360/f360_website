@@ -73,6 +73,7 @@ body::-webkit-scrollbar {
   --accent-dim: rgba(139, 111, 253, 0.16);
   background-color: #ffffff;
   color: var(--foreground);
+  color-scheme: light;
 }
 
 .band-dark {
@@ -170,4 +171,30 @@ body::-webkit-scrollbar {
 .prose-f360 p {
   margin-top: 1rem;
   line-height: 1.75;
+}
+
+/* Light scrollbars for assessment chat and progress panels */
+.scrollbar-light {
+  color-scheme: light;
+  scrollbar-width: thin;
+  scrollbar-color: #d1d5db #f4f4f5;
+}
+
+.scrollbar-light::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+
+.scrollbar-light::-webkit-scrollbar-track {
+  background: #f4f4f5;
+  border-radius: 9999px;
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 9999px;
+}
+
+.scrollbar-light::-webkit-scrollbar-thumb:hover {
+  background: #a1a1aa;
 }

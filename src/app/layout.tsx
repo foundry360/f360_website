@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { BackToTop } from "@/components/layout/BackToTop";
 import { Navbar } from "@/components/layout/Navbar";
-import { Footer } from "@/components/layout/Footer";
+import { ConditionalFooter } from "@/components/layout/ConditionalFooter";
 import { ContactModalRoot } from "@/components/contact/ContactModalRoot";
 import { site } from "@/lib/site";
 
@@ -61,7 +61,7 @@ export default function RootLayout({
           <main id="main-content" className="flex-1" tabIndex={-1}>
             {children}
           </main>
-          <Footer />
+          <ConditionalFooter />
           <BackToTop />
         </ContactModalRoot>
       </body>

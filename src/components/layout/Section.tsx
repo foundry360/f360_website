@@ -7,8 +7,10 @@ type SectionProps = {
   /** Visually quieter background band */
   variant?: "default" | "muted" | "grid" | "light" | "dark" | "accentSoft";
   /** Extra vertical padding for hero-style bands */
-  verticalSpacing?: "default" | "tall";
+  verticalSpacing?: "default" | "tall" | "flushTop";
   className?: string;
+  /** Classes applied to the inner max-width wrapper */
+  contentClassName?: string;
   /** Exposed to screen readers as region label */
   "aria-label"?: string;
 };
@@ -20,6 +22,7 @@ export function Section({
   variant = "default",
   verticalSpacing = "default",
   className = "",
+  contentClassName = "",
   "aria-label": ariaLabel,
 }: SectionProps) {
   const bg =
@@ -36,7 +39,11 @@ export function Section({
               : "";
 
   const py =
-    verticalSpacing === "tall" ? "py-28 sm:py-36 lg:py-44" : "py-20 sm:py-28";
+    verticalSpacing === "tall"
+      ? "py-28 sm:py-36 lg:py-44"
+      : verticalSpacing === "flushTop"
+        ? "pb-20 sm:pb-28"
+        : "py-20 sm:py-28";
 
   return (
     <section
@@ -44,7 +51,7 @@ export function Section({
       aria-label={ariaLabel}
       className={`scroll-mt-24 ${py} ${bg} ${className}`.trim()}
     >
-      <div className={pageGuttersClass}>{children}</div>
+      <div className={`${pageGuttersClass} ${contentClassName}`.trim()}>{children}</div>
     </section>
   );
 }

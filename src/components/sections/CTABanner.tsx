@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/motion/Reveal";
 import { formatSectionHeadingTitle } from "@/lib/sectionHeadingTitleCase";
@@ -6,11 +7,13 @@ type CTABannerProps = {
   title: string;
   body: string;
   cta: { href: string; label: string };
+  /** Custom CTA element; takes precedence over `cta` when provided. */
+  ctaSlot?: ReactNode;
   /** Keep the title on one line (fluid size + horizontal scroll on very narrow viewports). */
   titleSingleLine?: boolean;
 };
 
-export function CTABanner({ title, body, cta, titleSingleLine = false }: CTABannerProps) {
+export function CTABanner({ title, body, cta, ctaSlot, titleSingleLine = false }: CTABannerProps) {
   const titleDisplay = formatSectionHeadingTitle(title);
 
   return (
@@ -32,9 +35,11 @@ export function CTABanner({ title, body, cta, titleSingleLine = false }: CTABann
           <p className="mx-auto max-w-3xl text-muted sm:max-w-4xl">{body}</p>
         </Reveal>
         <Reveal delayMs={80} className="shrink-0">
-          <ButtonLink href={cta.href} variant="dark" size="sm">
-            {cta.label}
-          </ButtonLink>
+          {ctaSlot ?? (
+            <ButtonLink href={cta.href} variant="dark" size="sm">
+              {cta.label}
+            </ButtonLink>
+          )}
         </Reveal>
       </div>
     </div>

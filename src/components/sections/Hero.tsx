@@ -10,9 +10,19 @@ type HeroProps = {
   subtitle: string;
   /** Default matches the home hero; set `center` for centered layout. */
   align?: "center" | "left";
+  cta?: { href: string; label: string };
+  /** Custom CTA element; takes precedence over `cta` when provided. */
+  ctaSlot?: ReactNode;
 };
 
-export function Hero({ eyebrow, title, subtitle, align = "left" }: HeroProps) {
+export function Hero({
+  eyebrow,
+  title,
+  subtitle,
+  align = "left",
+  cta = { href: "#contact-form", label: "Consult an Expert" },
+  ctaSlot,
+}: HeroProps) {
   const titleContent = typeof title === "string" ? formatSectionHeadingTitle(title) : title;
   const isLeft = align === "left";
 
@@ -70,9 +80,11 @@ export function Hero({ eyebrow, title, subtitle, align = "left" }: HeroProps) {
           </p>
         </Reveal>
         <Reveal delayMs={120} className={isLeft ? "w-full" : "flex w-full flex-wrap justify-center"}>
-          <ButtonLink href="#contact-form" size="sm">
-            Consult an Expert
-          </ButtonLink>
+          {ctaSlot ?? (
+            <ButtonLink href={cta.href} size="sm">
+              {cta.label}
+            </ButtonLink>
+          )}
         </Reveal>
       </div>
     </section>
