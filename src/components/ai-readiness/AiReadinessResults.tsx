@@ -1,8 +1,9 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Section } from "@/components/layout/Section";
+import { ResultsCalculatingPanel } from "@/components/ai-readiness/ResultsCalculatingPanel";
 import { ResultsView } from "@/components/ai-readiness/ResultsView";
 import { loadLeadInfo, saveLeadInfo } from "@/lib/ai-readiness/lead-storage";
 import { enrichResultsReport } from "@/lib/ai-readiness/results-report";
@@ -92,7 +93,7 @@ export function AiReadinessResults({ calendarUrl }: AiReadinessResultsProps) {
   const [ready, setReady] = useState(isSample);
   const persistInFlight = useRef(false);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (isSample) return;
 
     const lead = loadLeadInfo();
@@ -131,11 +132,7 @@ export function AiReadinessResults({ calendarUrl }: AiReadinessResultsProps) {
   }, [isSample, router]);
 
   if (!ready || !results) {
-    return (
-      <Section variant="light" verticalSpacing="flushTop" aria-label="AI Readiness Results" className="pt-8">
-        <p className="text-sm text-muted">Loading results…</p>
-      </Section>
-    );
+    return <ResultsCalculatingPanel />;
   }
 
   return (

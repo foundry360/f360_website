@@ -81,7 +81,7 @@ export function ResultsView({ results, organization, calendarUrl, isSample = fal
       ) : null}
 
       <div className="bg-white text-foreground">
-        <div className="border-b border-border pb-4 pt-6">
+        <div className="pb-4 pt-6">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent">{site.name}</p>
           <p className="mt-1 text-sm text-muted">AI Readiness Assessment Results{organization ? ` · ${organization}` : ""}</p>
         </div>

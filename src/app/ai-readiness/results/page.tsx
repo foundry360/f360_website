@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { AiReadinessResults } from "@/components/ai-readiness/AiReadinessResults";
 
+import { ResultsCalculatingPanel } from "@/components/ai-readiness/ResultsCalculatingPanel";
+
 export const metadata: Metadata = {
   title: "Your AI Readiness Results",
   description:
@@ -12,11 +14,7 @@ export default function AiReadinessResultsPage() {
   const calendarUrl = process.env.GHL_CALENDAR_URL ?? process.env.NEXT_PUBLIC_GHL_CALENDAR_URL ?? "";
 
   return (
-    <Suspense
-      fallback={
-        <div className="px-6 py-20 text-sm text-muted sm:px-8 lg:px-12">Loading results…</div>
-      }
-    >
+    <Suspense fallback={<ResultsCalculatingPanel />}>
       <AiReadinessResults calendarUrl={calendarUrl} />
     </Suspense>
   );
