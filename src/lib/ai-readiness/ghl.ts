@@ -91,35 +91,14 @@ function buildUpsertBody(
 ) {
   return {
     locationId: config.locationId,
-    firstName: lead.firstName,
-    lastName: lead.lastName,
+    firstName: lead.firstName.trim(),
+    lastName: lead.lastName.trim(),
     email: lead.email.trim(),
     phone: lead.phone?.trim() || undefined,
     companyName: lead.organization.trim(),
     source: "AI Readiness Assessment",
     customFields: customFields?.length ? customFields : undefined,
   };
-}
-
-async function findDuplicateContactByEmail(config: GhlConfig, email: string) {
-  const url = new URL(`${GHL_API_BASE}/contacts/search/duplicate`);
-  url.searchParams.set("locationId", config.locationId);
-  url.searchParams.set("email", email.trim());
-
-  const res = await fetch(url.toString(), {
-    headers: ghlHeaders(config.apiKey),
-  });
-
-  if (res.status === 404) return null;
-  if (!res.ok) {
-    console.warn("[ai-readiness] GHL duplicate search failed:", await res.text());
-    return null;
-  }
-
-  const data = (await res.json()) as { contact?: { id: string; email?: string } };
-  if (!data.contact?.id) return null;
-
-  return data.contact;
 }
 
 async function upsertContact(
@@ -148,24 +127,6 @@ async function upsertContact(
   return { contactId, action: data.new ? "created" : "updated" };
 }
 
-async function updateContactFields(
-  config: GhlConfig,
-  contactId: string,
-  lead: LeadInfo,
-  customFields?: { id: string; field_value: string | number | boolean }[],
-): Promise<void> {
-  const res = await fetch(`${GHL_API_BASE}/contacts/${contactId}`, {
-    method: "PUT",
-    headers: ghlHeaders(config.apiKey),
-    body: JSON.stringify(buildUpsertBody(config, lead, customFields)),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`GHL contact update failed: ${err}`);
-  }
-}
-
 async function addContactTags(config: GhlConfig, contactId: string, tags: string[]): Promise<void> {
   if (tags.length === 0) return;
 
@@ -181,49 +142,20 @@ async function addContactTags(config: GhlConfig, contactId: string, tags: string
   }
 }
 
-async function resolveContactId(
-  config: GhlConfig,
-  lead: LeadInfo,
-  contactId?: string,
-): Promise<string | undefined> {
-  const duplicate = await findDuplicateContactByEmail(config, lead.email);
-  if (duplicate?.id) return duplicate.id;
-  return contactId;
-}
-
 async function writeContact(
   config: GhlConfig,
   lead: LeadInfo,
   options: {
     tags: string[];
     customFields?: { id: string; field_value: string | number | boolean }[];
-    contactId?: string;
   },
 ): Promise<GhlSyncResult> {
-  const knownContactId = await resolveContactId(config, lead, options.contactId);
-
-  let contactId: string;
-  let action: "created" | "updated";
-
-  if (knownContactId) {
-    await updateContactFields(config, knownContactId, lead, options.customFields);
-    contactId = knownContactId;
-    action = "updated";
-  } else {
-    const upserted = await upsertContact(config, lead, options.customFields);
-    contactId = upserted.contactId;
-    action = upserted.action;
-  }
-
+  const { contactId, action } = await upsertContact(config, lead, options.customFields);
   await addContactTags(config, contactId, options.tags);
-
   return { contactId, action };
 }
 
-export async function syncGhlLead(
-  lead: LeadInfo,
-  contactId?: string,
-): Promise<GhlSyncResult> {
+export async function syncGhlLead(lead: LeadInfo): Promise<GhlSyncResult> {
   const config = getGhlConfig();
   if (!config) {
     return { skipped: true, reason: "GHL is not configured" };
@@ -235,7 +167,6 @@ export async function syncGhlLead(
 
   return writeContact(config, lead, {
     tags: buildLeadStartTags(),
-    contactId,
   });
 }
 
@@ -243,7 +174,6 @@ export async function syncGhlAssessmentResults(
   lead: LeadInfo,
   results: AssessmentResults,
   submittedAt: string,
-  contactId?: string,
 ): Promise<GhlSyncResult> {
   const config = getGhlConfig();
   if (!config) {
@@ -259,6 +189,5 @@ export async function syncGhlAssessmentResults(
   return writeContact(config, lead, {
     tags: buildResultTags(results),
     customFields,
-    contactId,
   });
 }

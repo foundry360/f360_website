@@ -35,12 +35,7 @@ export async function POST(request: NextRequest) {
 
     let ghlResult: Awaited<ReturnType<typeof syncGhlAssessmentResults>> | undefined;
     if (body.lead?.firstName && body.lead?.lastName && body.lead?.email && emailRegex.test(body.lead.email)) {
-      ghlResult = await syncGhlAssessmentResults(
-        body.lead,
-        body.results,
-        body.submittedAt,
-        body.ghlContactId ?? body.lead.ghlContactId,
-      );
+      ghlResult = await syncGhlAssessmentResults(body.lead, body.results, body.submittedAt);
 
       if (ghlResult && "skipped" in ghlResult) {
         console.warn("[ai-readiness] GHL results sync skipped:", ghlResult.reason);

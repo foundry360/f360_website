@@ -53,9 +53,14 @@ export function AiReadinessLeadGateway() {
         });
 
         if (res.ok) {
-          const data = (await res.json()) as { contactId?: string | null };
+          const data = (await res.json()) as {
+            contactId?: string | null;
+            ghl?: { skipped?: boolean; reason?: string; action?: string };
+          };
           if (data.contactId) {
             saveLeadInfo({ ...lead, ghlContactId: data.contactId });
+          } else if (data.ghl && "skipped" in data.ghl) {
+            console.warn("[ai-readiness] GHL lead sync skipped:", data.ghl.reason);
           }
         } else {
           console.warn("[ai-readiness] GHL lead sync failed:", await res.text());

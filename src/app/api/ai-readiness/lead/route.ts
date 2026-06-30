@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error }, { status: 400 });
     }
 
-    const ghlResult = await syncGhlLead(body.lead, body.ghlContactId);
+    const ghlResult = await syncGhlLead(body.lead);
 
     if ("skipped" in ghlResult) {
       console.warn("[ai-readiness] GHL lead sync skipped:", ghlResult.reason);
