@@ -84,40 +84,111 @@ function buildCustomFields(results: AssessmentResults, lead: LeadInfo, submitted
   return customFields;
 }
 
-async function findContactByEmail(config: GhlConfig, email: string) {
-  const url = new URL(`${GHL_API_BASE}/contacts/`);
-  url.searchParams.set("locationId", config.locationId);
-  url.searchParams.set("query", email);
-
-  const res = await fetch(url.toString(), {
-    headers: ghlHeaders(config.apiKey),
-  });
-
-  if (!res.ok) return null;
-
-  const data = (await res.json()) as { contacts?: { id: string; email?: string }[] };
-  return data.contacts?.find((c) => c.email?.toLowerCase() === email.toLowerCase()) ?? null;
-}
-
-function buildContactBody(
+function buildUpsertBody(
   config: GhlConfig,
   lead: LeadInfo,
-  options: {
-    tags: string[];
-    customFields?: { id: string; field_value: string | number | boolean }[];
-  },
+  customFields?: { id: string; field_value: string | number | boolean }[],
 ) {
   return {
     locationId: config.locationId,
     firstName: lead.firstName,
     lastName: lead.lastName,
-    email: lead.email,
-    phone: lead.phone || undefined,
-    companyName: lead.organization || undefined,
-    tags: options.tags,
+    email: lead.email.trim(),
+    phone: lead.phone?.trim() || undefined,
+    companyName: lead.organization.trim(),
     source: "AI Readiness Assessment",
-    customFields: options.customFields?.length ? options.customFields : undefined,
+    customFields: customFields?.length ? customFields : undefined,
   };
+}
+
+async function findDuplicateContactByEmail(config: GhlConfig, email: string) {
+  const url = new URL(`${GHL_API_BASE}/contacts/search/duplicate`);
+  url.searchParams.set("locationId", config.locationId);
+  url.searchParams.set("email", email.trim());
+
+  const res = await fetch(url.toString(), {
+    headers: ghlHeaders(config.apiKey),
+  });
+
+  if (res.status === 404) return null;
+  if (!res.ok) {
+    console.warn("[ai-readiness] GHL duplicate search failed:", await res.text());
+    return null;
+  }
+
+  const data = (await res.json()) as { contact?: { id: string; email?: string } };
+  if (!data.contact?.id) return null;
+
+  return data.contact;
+}
+
+async function upsertContact(
+  config: GhlConfig,
+  lead: LeadInfo,
+  customFields?: { id: string; field_value: string | number | boolean }[],
+): Promise<{ contactId: string; action: "created" | "updated" }> {
+  const res = await fetch(`${GHL_API_BASE}/contacts/upsert`, {
+    method: "POST",
+    headers: ghlHeaders(config.apiKey),
+    body: JSON.stringify(buildUpsertBody(config, lead, customFields)),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GHL contact upsert failed: ${err}`);
+  }
+
+  const data = (await res.json()) as { contact?: { id: string }; new?: boolean };
+  const contactId = data.contact?.id;
+
+  if (!contactId) {
+    throw new Error("GHL contact upsert succeeded but no contact ID was returned");
+  }
+
+  return { contactId, action: data.new ? "created" : "updated" };
+}
+
+async function updateContactFields(
+  config: GhlConfig,
+  contactId: string,
+  lead: LeadInfo,
+  customFields?: { id: string; field_value: string | number | boolean }[],
+): Promise<void> {
+  const res = await fetch(`${GHL_API_BASE}/contacts/${contactId}`, {
+    method: "PUT",
+    headers: ghlHeaders(config.apiKey),
+    body: JSON.stringify(buildUpsertBody(config, lead, customFields)),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GHL contact update failed: ${err}`);
+  }
+}
+
+async function addContactTags(config: GhlConfig, contactId: string, tags: string[]): Promise<void> {
+  if (tags.length === 0) return;
+
+  const res = await fetch(`${GHL_API_BASE}/contacts/${contactId}/tags`, {
+    method: "POST",
+    headers: ghlHeaders(config.apiKey),
+    body: JSON.stringify({ tags }),
+  });
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`GHL add tags failed: ${err}`);
+  }
+}
+
+async function resolveContactId(
+  config: GhlConfig,
+  lead: LeadInfo,
+  contactId?: string,
+): Promise<string | undefined> {
+  const duplicate = await findDuplicateContactByEmail(config, lead.email);
+  if (duplicate?.id) return duplicate.id;
+  return contactId;
 }
 
 async function writeContact(
@@ -129,60 +200,24 @@ async function writeContact(
     contactId?: string;
   },
 ): Promise<GhlSyncResult> {
-  const contactBody = buildContactBody(config, lead, options);
-  const headers = ghlHeaders(config.apiKey);
+  const knownContactId = await resolveContactId(config, lead, options.contactId);
 
-  if (options.contactId) {
-    const res = await fetch(`${GHL_API_BASE}/contacts/${options.contactId}`, {
-      method: "PUT",
-      headers,
-      body: JSON.stringify(contactBody),
-    });
+  let contactId: string;
+  let action: "created" | "updated";
 
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`GHL contact update failed: ${err}`);
-    }
-
-    return { contactId: options.contactId, action: "updated" };
+  if (knownContactId) {
+    await updateContactFields(config, knownContactId, lead, options.customFields);
+    contactId = knownContactId;
+    action = "updated";
+  } else {
+    const upserted = await upsertContact(config, lead, options.customFields);
+    contactId = upserted.contactId;
+    action = upserted.action;
   }
 
-  const existing = await findContactByEmail(config, lead.email);
+  await addContactTags(config, contactId, options.tags);
 
-  if (existing) {
-    const res = await fetch(`${GHL_API_BASE}/contacts/${existing.id}`, {
-      method: "PUT",
-      headers,
-      body: JSON.stringify(contactBody),
-    });
-
-    if (!res.ok) {
-      const err = await res.text();
-      throw new Error(`GHL contact update failed: ${err}`);
-    }
-
-    return { contactId: existing.id, action: "updated" };
-  }
-
-  const res = await fetch(`${GHL_API_BASE}/contacts/`, {
-    method: "POST",
-    headers,
-    body: JSON.stringify(contactBody),
-  });
-
-  if (!res.ok) {
-    const err = await res.text();
-    throw new Error(`GHL contact creation failed: ${err}`);
-  }
-
-  const data = (await res.json()) as { contact?: { id: string } };
-  const contactId = data.contact?.id;
-
-  if (!contactId) {
-    throw new Error("GHL contact creation succeeded but no contact ID was returned");
-  }
-
-  return { contactId, action: "created" };
+  return { contactId, action };
 }
 
 export async function syncGhlLead(
