@@ -1,6 +1,6 @@
 import type { AssessmentQuestion, CategoryMeta, QuestionOption } from "./types";
 
-export const STORAGE_KEY = "f360-ai-readiness-assessment-v2";
+export { ASSESSMENT_STORAGE_KEY as STORAGE_KEY } from "./session-storage";
 
 export const CATEGORY_ORDER = [
   "strategy",

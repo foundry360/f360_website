@@ -22,6 +22,24 @@ export async function persistAssessmentResults(
   }
 
   const { results, answers, submittedAt, lead } = input;
+  const contactEmail = lead?.email?.trim().toLowerCase() ?? null;
+
+  if (contactEmail) {
+    const { data: existing, error: lookupError } = await supabase
+      .from("ai_readiness_results")
+      .select("id")
+      .eq("contact_email", contactEmail)
+      .eq("submitted_at", submittedAt)
+      .maybeSingle();
+
+    if (lookupError) {
+      throw new Error(lookupError.message);
+    }
+
+    if (existing) {
+      return { id: existing.id };
+    }
+  }
 
   const { data, error } = await supabase
     .from("ai_readiness_results")
@@ -48,6 +66,23 @@ export async function persistAssessmentResults(
     .single();
 
   if (error) {
+    if (error.code === "23505" && contactEmail) {
+      const { data: existing, error: lookupError } = await supabase
+        .from("ai_readiness_results")
+        .select("id")
+        .eq("contact_email", contactEmail)
+        .eq("submitted_at", submittedAt)
+        .maybeSingle();
+
+      if (lookupError) {
+        throw new Error(lookupError.message);
+      }
+
+      if (existing) {
+        return { id: existing.id };
+      }
+    }
+
     throw new Error(error.message);
   }
 

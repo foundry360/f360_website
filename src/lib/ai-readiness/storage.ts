@@ -1,6 +1,12 @@
 import { STORAGE_KEY } from "./questions";
 import { enrichResultsReport } from "./results-report";
 import { calculateResults } from "./scoring";
+import {
+  clearAiReadinessSession,
+  readSessionItem,
+  removeSessionItem,
+  writeSessionItem,
+} from "./session-storage";
 import type { AssessmentState } from "./types";
 
 export const defaultAssessmentState: AssessmentState = {
@@ -13,7 +19,7 @@ export function loadAssessmentState(): AssessmentState {
   if (typeof window === "undefined") return defaultAssessmentState;
 
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = readSessionItem(STORAGE_KEY);
     if (!raw) return defaultAssessmentState;
     const parsed = JSON.parse(raw) as Record<string, unknown>;
     const savedPhase = typeof parsed.phase === "string" ? parsed.phase : "assessment";
@@ -54,13 +60,14 @@ export function saveAssessmentState(state: AssessmentState): void {
   if (typeof window === "undefined") return;
 
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    writeSessionItem(STORAGE_KEY, JSON.stringify(state));
   } catch {
     // Storage full or unavailable — fail silently
   }
 }
 
 export function clearAssessmentState(): void {
-  if (typeof window === "undefined") return;
-  localStorage.removeItem(STORAGE_KEY);
+  removeSessionItem(STORAGE_KEY);
 }
+
+export { clearAiReadinessSession };

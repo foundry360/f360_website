@@ -114,7 +114,7 @@ export function AiReadinessAssessment() {
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">
             AI Readiness Assessment
           </p>
-          <p className="mt-1 text-sm text-muted">Approximately 3–5 minutes · Progress saved automatically</p>
+          <p className="mt-1 text-sm text-muted">Approximately 3–5 minutes · Complete in one session</p>
         </div>
         <Link
           href={AI_READINESS_PATH}

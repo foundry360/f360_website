@@ -46,9 +46,9 @@ export default function AiReadinessLandingPage() {
                 "Each response is weighted to produce category scores and an overall AI Readiness Score. Results inform practical next steps, not software sales.",
             },
             {
-              title: "3–5 minutes, resume anytime",
+              title: "3–5 minutes, one session",
               description:
-                "The assessment takes approximately 3–5 minutes to complete. Your progress is saved automatically so you can return and finish when ready.",
+                "The assessment takes approximately 3–5 minutes to complete. Your responses are kept for this browser session only.",
             },
           ]}
         />
@@ -120,7 +120,7 @@ export default function AiReadinessLandingPage() {
       <Section variant="accentSoft" aria-label="Call to action">
         <CTABanner
           title="Ready to evaluate your organization's AI readiness?"
-          body="Take the assessment in just a few minutes. Your progress is saved automatically, and you can return anytime to complete it."
+          body="Take the assessment in just a few minutes. Complete it in one session—responses are cleared when you refresh or close the browser."
           cta={{ href: GET_STARTED_HASH, label: "Start Assessment" }}
           ctaSlot={<AiReadinessStartButton variant="dark" />}
         />

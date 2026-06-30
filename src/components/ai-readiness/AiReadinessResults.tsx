@@ -1,11 +1,19 @@
 "use client";
 
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Section } from "@/components/layout/Section";
 import { ResultsCalculatingPanel } from "@/components/ai-readiness/ResultsCalculatingPanel";
 import { ResultsView } from "@/components/ai-readiness/ResultsView";
 import { loadLeadInfo, saveLeadInfo } from "@/lib/ai-readiness/lead-storage";
+import {
+  buildSubmissionKey,
+  clearPersistPending,
+  getPersistedResultId,
+  markPersistComplete,
+  markPersistPending,
+  persistAssessmentResultsOnce,
+} from "@/lib/ai-readiness/persist-results-client";
 import { enrichResultsReport } from "@/lib/ai-readiness/results-report";
 import {
   AI_READINESS_ASSESSMENT_PATH,
@@ -91,7 +99,6 @@ export function AiReadinessResults({ calendarUrl }: AiReadinessResultsProps) {
   const [results, setResults] = useState<AssessmentResults | null>(isSample ? sampleAssessmentResults : null);
   const [organization, setOrganization] = useState("");
   const [ready, setReady] = useState(isSample);
-  const persistInFlight = useRef(false);
 
   useLayoutEffect(() => {
     if (isSample) return;
@@ -115,19 +122,35 @@ export function AiReadinessResults({ calendarUrl }: AiReadinessResultsProps) {
 
     setReady(true);
 
-    if (!lead || state.resultId || !state.submittedAt || persistInFlight.current) {
+    if (!lead || !state.submittedAt) {
       return;
     }
 
-    persistInFlight.current = true;
-    void saveResultsToSupabase({ ...state, results: report }, lead)
+    const submissionKey = buildSubmissionKey(state.submittedAt, lead.email);
+    const existingResultId = state.resultId ?? getPersistedResultId(submissionKey);
+
+    if (existingResultId) {
+      if (!state.resultId) {
+        saveAssessmentState({ ...state, results: report, resultId: existingResultId });
+      }
+      return;
+    }
+
+    if (!markPersistPending(submissionKey)) {
+      return;
+    }
+
+    void persistAssessmentResultsOnce(submissionKey, () =>
+      saveResultsToSupabase({ ...state, results: report }, lead),
+    )
       .then((resultId) => {
         if (resultId) {
+          markPersistComplete(submissionKey, resultId);
           saveAssessmentState({ ...state, results: report, resultId });
         }
       })
-      .finally(() => {
-        persistInFlight.current = false;
+      .catch(() => {
+        clearPersistPending(submissionKey);
       });
   }, [isSample, router]);
 
