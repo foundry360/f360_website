@@ -23,7 +23,7 @@ export default function InsightsPage() {
         subtitle="Practical notes for leaders who need AI to show up in revenue, risk, and operations, not just in demos. Topics mirror what we discuss with clients in healthcare, SaaS, and complex B2B motions."
       />
 
-      <Section variant="dark" aria-label="All articles">
+      <Section variant="light" aria-label="All articles">
         <div className="mb-10 max-w-2xl space-y-3">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground normal-case sm:text-4xl">
             {formatSectionHeadingTitle("Latest articles")}
