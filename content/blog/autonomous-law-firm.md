@@ -1,7 +1,7 @@
 ---
 title: "The autonomous law firm: AI, automation, and the future of legal operations"
 description: "How an Autonomous Operating System helps firms orchestrate workflows, reduce administrative burden, and become AI-native without replacing legal judgment."
-date: "2025-11-26"
+date: "2026-07-01"
 author: "Foundry360"
 featured: true
 ---

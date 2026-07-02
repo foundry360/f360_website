@@ -12,19 +12,20 @@ export type BlogPreview = {
 
 export function BlogPreviewCard({ post, index = 0 }: { post: BlogPreview; index?: number }) {
   return (
-    <Reveal delayMs={index * 70}>
+    <Reveal delayMs={index * 70} className="h-full">
       <article className="flex h-full flex-col rounded-2xl border border-border bg-surface/60 p-6 transition hover:border-accent/35 hover:bg-surface-elevated/70">
         <time className="text-sm font-medium uppercase tracking-wide text-muted" dateTime={post.date}>
           {new Date(post.date).toLocaleDateString("en-US", {
             year: "numeric",
             month: "short",
             day: "numeric",
+            timeZone: "UTC",
           })}
         </time>
         <h3 className="mt-3 text-2xl font-semibold tracking-tight text-foreground normal-case">
           <Link
             href={`/insights/${post.slug}`}
-            className="rounded outline-none ring-offset-2 ring-offset-background hover:text-accent focus-visible:ring-2 focus-visible:ring-accent"
+            className="line-clamp-2 rounded outline-none ring-offset-2 ring-offset-background hover:text-accent focus-visible:ring-2 focus-visible:ring-accent"
           >
             {formatSectionHeadingTitle(post.title)}
           </Link>

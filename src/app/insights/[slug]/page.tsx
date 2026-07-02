@@ -74,7 +74,7 @@ export default async function InsightArticlePage({ params }: Props) {
             <p className="max-w-5xl text-base font-medium leading-relaxed text-foreground/95 sm:text-lg">{post.description}</p>
             <div className="flex flex-wrap items-center justify-start gap-3 text-sm text-muted">
               <time dateTime={post.date}>
-                {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric" })}
+                {new Date(post.date).toLocaleDateString("en-US", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" })}
               </time>
               <span aria-hidden>·</span>
               <span>{post.author}</span>

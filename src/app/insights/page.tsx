@@ -35,7 +35,7 @@ export default function InsightsPage() {
         </div>
         <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((p, i) => (
-            <li key={p.slug}>
+            <li key={p.slug} className="h-full">
               <BlogPreviewCard
                 post={{
                   slug: p.slug,
