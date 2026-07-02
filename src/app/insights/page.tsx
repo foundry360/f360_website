@@ -23,25 +23,6 @@ export default function InsightsPage() {
         subtitle="Practical notes for leaders who need AI to show up in revenue, risk, and operations, not just in demos. Topics mirror what we discuss with clients in healthcare, SaaS, and complex B2B motions."
       />
 
-      <Section variant="light" aria-label="Editorial note">
-        <div className="max-w-3xl space-y-4 rounded-2xl border border-border bg-surface/40 p-6 sm:p-8">
-          <p className="text-base font-medium text-foreground sm:text-lg">How this library is maintained</p>
-          <p className="text-base leading-relaxed text-muted sm:text-lg">
-            Articles below are stored as markdown in this repository so the site stays fast and version-controlled. When you
-            connect a CMS, keep the same frontmatter fields (title, description, date, author, featured) and swap the reader
-            in <code className="rounded bg-surface-elevated px-1.5 py-0.5 font-mono text-xs text-accent">getAllPosts</code>;
-            components do not need to change.
-          </p>
-          <p className="text-base leading-relaxed text-muted sm:text-lg">
-            For the canonical archive during migration, you can still reference{" "}
-            <a href={site.url} className="font-medium text-accent underline-offset-2 hover:underline">
-              {site.url.replace(/^https:\/\//, "")}
-            </a>
-            .
-          </p>
-        </div>
-      </Section>
-
       <Section variant="dark" aria-label="All articles">
         <div className="mb-10 max-w-2xl space-y-3">
           <h2 className="text-3xl font-semibold tracking-tight text-foreground normal-case sm:text-4xl">
