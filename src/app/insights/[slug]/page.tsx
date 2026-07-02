@@ -68,7 +68,7 @@ export default async function InsightArticlePage({ params }: Props) {
               <div className="mb-3 h-1 w-24 bg-accent sm:mb-4" aria-hidden />
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-accent sm:text-base">Insight</p>
               <h1 className="w-full max-w-5xl text-5xl font-bold leading-[1.1] tracking-[0.015em] text-foreground normal-case sm:text-6xl lg:text-7xl">
-                {formatSectionHeadingTitle(post.title)}
+                {formatSectionHeadingTitle(post.title).replace(/-/g, "\u2011")}
               </h1>
             </div>
             <p className="max-w-5xl text-base font-medium leading-relaxed text-foreground/95 sm:text-lg">{post.description}</p>
@@ -82,6 +82,12 @@ export default async function InsightArticlePage({ params }: Props) {
           </div>
         </header>
         <Section variant="light" aria-label="Article body" className="py-16 sm:py-20">
+          <Link
+            href="/insights"
+            className="mb-8 inline-flex items-center text-sm font-medium text-accent underline-offset-2 hover:underline"
+          >
+            ← All insights
+          </Link>
           <MarkdownBody content={post.content} />
           <nav className="mt-12 flex flex-wrap gap-4 border-t border-border pt-10 text-sm" aria-label="Article navigation">
             <Link href="/insights" className="font-medium text-accent hover:underline">
