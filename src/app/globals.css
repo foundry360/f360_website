@@ -173,6 +173,23 @@ body::-webkit-scrollbar {
   line-height: 1.75;
 }
 
+.prose-f360 ul {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  list-style-type: disc;
+}
+
+.prose-f360 ol {
+  margin-top: 1rem;
+  padding-left: 1.5rem;
+  list-style-type: decimal;
+}
+
+.prose-f360 li {
+  margin-top: 0.5rem;
+  line-height: 1.75;
+}
+
 /* Light scrollbars for assessment chat and progress panels */
 .scrollbar-light {
   color-scheme: light;
