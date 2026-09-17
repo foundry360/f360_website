@@ -18,7 +18,12 @@ export const site = {
   },
 } as const;
 
-export type NavLeaf = { readonly href: string; readonly label: string };
+export type NavLeaf = {
+  readonly href: string;
+  readonly label: string;
+  /** Open in a new tab (e.g. product sites hosted elsewhere). */
+  readonly external?: boolean;
+};
 
 /** Primary header IA — main routes for this Next.js site (includes Industries). */
 export const navEntries: readonly NavLeaf[] = [
@@ -28,8 +33,9 @@ export const navEntries: readonly NavLeaf[] = [
   { href: "/what-you-can-expect", label: "What you can expect" },
   { href: "/industries", label: "Industries" },
   { href: "/ai-readiness", label: "AI Readiness" },
-  { href: "/enigma", label: "Enigma" },
+  { href: "https://getenigmaai.com", label: "Enigma", external: true },
   { href: "/insights", label: "Insights" },
+  { href: "/press", label: "Press" },
   { href: "#contact-form", label: "Contact" },
 ] as const;
 
@@ -37,6 +43,6 @@ export const navEntries: readonly NavLeaf[] = [
 export const footerExtraLinks: readonly NavLeaf[] = [{ href: "/about", label: "About" }] as const;
 
 /** Flattened links for footer “Explore”. */
-export function getFooterNavLinks(): { href: string; label: string }[] {
+export function getFooterNavLinks(): NavLeaf[] {
   return [...navEntries, ...footerExtraLinks];
 }

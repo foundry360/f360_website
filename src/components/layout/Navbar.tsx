@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import logo from "../../../public/images/logo.png";
-import { navEntries, site } from "@/lib/site";
+import { navEntries, site, type NavLeaf } from "@/lib/site";
 import { isNavActive } from "@/lib/nav";
 
 const navUnderline =
@@ -43,6 +43,52 @@ function mobileUnderlineClass(active: boolean) {
   ].join(" ");
 }
 
+function NavItemLink({
+  entry,
+  className,
+  underlineClassName,
+  onClick,
+}: {
+  entry: NavLeaf;
+  className: string;
+  underlineClassName: string;
+  onClick?: () => void;
+}) {
+  const pathname = usePathname() ?? "/";
+  const active = isNavActive(pathname, entry.href);
+  const label = (
+    <>
+      {entry.label}
+      <span className={underlineClassName} aria-hidden />
+    </>
+  );
+
+  if (entry.external) {
+    return (
+      <a
+        href={entry.href}
+        className={className}
+        target="_blank"
+        rel="noopener noreferrer"
+        onClick={onClick}
+      >
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <Link
+      href={entry.href}
+      className={className}
+      aria-current={active ? "page" : undefined}
+      onClick={onClick}
+    >
+      {label}
+    </Link>
+  );
+}
+
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const pathname = usePathname() ?? "/";
@@ -70,14 +116,11 @@ export function Navbar() {
                 const active = isNavActive(pathname, entry.href);
                 return (
                   <li key={entry.href} className="flex">
-                    <Link
-                      href={entry.href}
+                    <NavItemLink
+                      entry={entry}
                       className={desktopNavLinkClass(active)}
-                      aria-current={active ? "page" : undefined}
-                    >
-                      {entry.label}
-                      <span className={desktopUnderlineClass(active)} aria-hidden />
-                    </Link>
+                      underlineClassName={desktopUnderlineClass(active)}
+                    />
                   </li>
                 );
               })}
@@ -110,15 +153,12 @@ export function Navbar() {
                 const active = isNavActive(pathname, entry.href);
                 return (
                   <li key={entry.href}>
-                    <Link
-                      href={entry.href}
+                    <NavItemLink
+                      entry={entry}
                       className={mobileNavLinkClass(active)}
-                      aria-current={active ? "page" : undefined}
+                      underlineClassName={mobileUnderlineClass(active)}
                       onClick={() => setMobileOpen(false)}
-                    >
-                      {entry.label}
-                      <span className={mobileUnderlineClass(active)} aria-hidden />
-                    </Link>
+                    />
                   </li>
                 );
               })}

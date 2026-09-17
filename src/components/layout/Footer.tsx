@@ -42,9 +42,20 @@ export function Footer() {
               <ul className="mt-4 flex flex-col gap-2">
                 {footerLinks.map((l) => (
                   <li key={l.href}>
-                    <Link href={l.href} className={linkClass}>
-                      {l.label}
-                    </Link>
+                    {l.external ? (
+                      <a
+                        href={l.href}
+                        className={linkClass}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        {l.label}
+                      </a>
+                    ) : (
+                      <Link href={l.href} className={linkClass}>
+                        {l.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
