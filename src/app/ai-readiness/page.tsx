@@ -58,7 +58,7 @@ export default function AiReadinessLandingPage() {
         id="get-started"
         variant="light"
         aria-label="Start the assessment"
-        className="scroll-mt-24 border-b border-border"
+        className="scroll-mt-36 border-b border-border"
       >
         <AiReadinessLeadGateway />
       </Section>

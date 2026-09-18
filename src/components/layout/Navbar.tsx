@@ -5,6 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import logo from "../../../public/images/logo.png";
+import { AnnouncementBanner } from "@/components/layout/AnnouncementBanner";
 import { navEntries, site, type NavLeaf } from "@/lib/site";
 import { isNavActive } from "@/lib/nav";
 
@@ -95,6 +96,7 @@ export function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 w-full bg-background/80 backdrop-blur-md">
+      <AnnouncementBanner />
       <div className="flex h-20 w-full items-center justify-between gap-4 px-4 sm:px-6 lg:px-8">
         <Link
           href="/"

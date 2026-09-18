@@ -49,7 +49,7 @@ export function Section({
     <section
       id={id}
       aria-label={ariaLabel}
-      className={`scroll-mt-24 ${py} ${bg} ${className}`.trim()}
+      className={`scroll-mt-36 ${py} ${bg} ${className}`.trim()}
     >
       <div className={`${pageGuttersClass} ${contentClassName}`.trim()}>{children}</div>
     </section>
